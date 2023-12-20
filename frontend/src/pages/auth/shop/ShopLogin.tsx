@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import lwpStyles from "../../styles";
-import { loginAsync } from "../../redux/actions/user";
-import { AppDispatch } from "../../redux/store";
+import lwpStyles from "../../../styles";
+import { loginAsync } from "../../../redux/actions/user";
+import { AppDispatch } from "../../../redux/store";
 import { AxiosError } from "axios";
 
-const Login = () => {
+const ShopLogin = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ const Login = () => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await dispatch(loginAsync({ email, password}));
+      await dispatch(loginAsync({ email, password }));
       toast.success("Login Success!");
       navigate("/");
     } catch (error) {
@@ -127,7 +127,7 @@ const Login = () => {
             </div>
             <div className={`${lwpStyles.noramlFlex} w-full`}>
               <h4>Not have any account?</h4>
-              <Link to="/register" className="text-blue-600 pl-2">
+              <Link to="/shop-register" className="text-blue-600 pl-2">
                 Register
               </Link>
             </div>
@@ -138,4 +138,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ShopLogin;

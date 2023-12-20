@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { activateUserAsync } from "../redux/actions/user";
-import { AppDispatch } from "../redux/store";
+import { activateUserAsync } from "../../redux/actions/user";
+import { AppDispatch } from "../../redux/store";
 
-const ActivationPage = () => {
+const SellerActivationPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { token } = useParams();
@@ -18,7 +18,7 @@ const ActivationPage = () => {
         try {
           await dispatch(activateUserAsync(token));
           toast.success("User Successfully Activated!");
-          navigate("/");
+          navigate("/seller-login");
         } catch (error) {
           const axiosError = error as AxiosError;
           setError("An error occurred while activating user");
@@ -46,4 +46,4 @@ const ActivationPage = () => {
   );
 };
 
-export default ActivationPage;
+export default SellerActivationPage;

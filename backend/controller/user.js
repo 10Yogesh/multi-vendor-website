@@ -5,12 +5,30 @@ const UserModel = require("../model/User");
 const LWPError = require("../utils/error");
 const sendToken = require("../utils/jwtToken");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const { isAuthenticated } = require("../middleware/auth");
 
 const userRouter = express.Router();
 
-userRouter.get("/", (req, res) => {
-  res.send("userRouter");
-});
+userRouter.get(
+  "/",
+  isAuthenticated,
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const user = await UserModel.findById(req.user._id);
+
+      if (!user) {
+        return next(new LWPError("User doesn't exists", 400));
+      }
+
+      res.status(200).json({
+        success: true,
+        user,
+      });
+    } catch (error) {
+      return next(new LWPError(error.message, 500));
+    }
+  })
+);
 
 userRouter.post(
   "/create",
@@ -40,7 +58,7 @@ userRouter.post(
 
     const activationToken = createActivationToken({ name, email, password });
     // TODO change the port
-    const activationUrl = `http://localhost:5173/api/v1/user/activation/${activationToken}`;
+    const activationUrl = `http://localhost:5173/activation/${activationToken}`;
     await sendMail({
       email: email,
       subject: "Please Activate Your Account",

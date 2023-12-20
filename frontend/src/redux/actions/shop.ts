@@ -6,19 +6,22 @@ interface LoginData {
   name?: string;
   email: string;
   password: string;
+  address?: string;
+  zipCode?: string;
+  phoneNumber?: string;
   rememberMe?: boolean;
 }
 
-export const loginAsync = createAsyncThunk(
-  "user/login",
-  async (loginData: LoginData) => {
+export const shopLoginAsync = createAsyncThunk(
+  "shop/login",
+  async (LoginData: LoginData) => {
     try {
-      const response = await lwpAxios.post("/user/login", loginData, {
+      const response = await lwpAxios.post("/shop/login", LoginData, {
         withCredentials: true,
       });
       return response.data;
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
+    } catch (error: unknown) {  
+      if (error instanceof AxiosError) {  
         throw new Error("Login failed: " + error.response?.data.message);
       } else {
         return Promise.reject();
@@ -27,16 +30,16 @@ export const loginAsync = createAsyncThunk(
   }
 );
 
-export const autoLoginAsync = createAsyncThunk(
-  "user/autoLogin",
-  async () => {
+export const shopAutoLoginAsync = createAsyncThunk(
+  "shop/login",
+  async (LoginData: LoginData) => {
     try {
-      const response = await lwpAxios.get("/user", {
+      const response = await lwpAxios.post("/shop/login", LoginData, {
         withCredentials: true,
       });
       return response.data;
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
+    } catch (error: unknown) {  
+      if (error instanceof AxiosError) {  
         throw new Error("Login failed: " + error.response?.data.message);
       } else {
         return Promise.reject();
@@ -45,11 +48,11 @@ export const autoLoginAsync = createAsyncThunk(
   }
 );
 
-export const createUserAsync = createAsyncThunk(
-  "user/create",
-  async (loginData: LoginData) => {
+export const createShopAsync = createAsyncThunk(
+  "shop/create",
+  async (LoginData: LoginData) => {
     try {
-      const response = await lwpAxios.post("/user/create", loginData, {
+      const response = await lwpAxios.post("/shop/create", LoginData, {
         withCredentials: true,
       });
       return response.data;
@@ -63,11 +66,11 @@ export const createUserAsync = createAsyncThunk(
   }
 );
 
-export const activateUserAsync = createAsyncThunk(
-  "user/active",
+export const activateShopAsync = createAsyncThunk(
+  "shop/active",
   async (token: string) => {
     try {
-      const response = await lwpAxios.get(`/user/activation/${token}`);
+      const response = await lwpAxios.post(`/shop/activation, ${token}`);
       return response.data;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
