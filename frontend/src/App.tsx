@@ -4,11 +4,15 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Login from "./pages/auth/user/Login";
 import Register from "./pages/auth/user/Register";
-import ShopLogin from "./pages/auth/shop/ShopLogin";
-import ShopRegister from "./pages/auth/shop/ShopRegister";
 import ActivationPage from "./pages/activation/ActivationPage";
 import Home from "./pages/Home";
-import SellerActivationPage from "./pages/activation/SellerActivationPage";
+import ShopLogin from "./pages/auth/shop/ShopLogin";
+import ShopRegister from "./pages/auth/shop/ShopRegister";
+import ShopActivationPage from "./pages/activation/ShopActivationPage";
+import ShopProtectedRoute from "./routes/ShopProtectedRoute";
+import ShopDashboard from "./pages/shop/Dashboard";
+import ShopCreateProduct from "./pages/shop/CreateProduct";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -16,15 +20,32 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/activation/:token" element={<ActivationPage />} />
+
         <Route path="/shop-login" element={<ShopLogin />} />
         <Route path="/shop-register" element={<ShopRegister />} />
-
-        <Route path="/activation/:token" element={<ActivationPage />} />
         <Route
           path="/shop-activation/:token"
-          element={<SellerActivationPage />}
+          element={<ShopActivationPage />}
+        />
+        <Route
+          path="/shop-dashboard"
+          element={
+            <ShopProtectedRoute>
+              <ShopDashboard />
+            </ShopProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard-create-product"
+          element={
+            <ShopProtectedRoute>
+              <ShopCreateProduct />
+            </ShopProtectedRoute>
+          }
         />
         <Route path="/" index element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer
         position="bottom-right"

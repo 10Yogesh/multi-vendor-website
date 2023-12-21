@@ -15,9 +15,9 @@ exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
 
   req.user = await User.findById(decoded.id);
 
-  if (!res.user) {
-    res.clearCookie("token", null);
-    return next(new LWPError("Token not valid", 401));
+  if (!req.user) {
+    res.clearCookie("token");
+    return next(new LWPError("Token is not valid! Login to continue", 401));
   }
 
   next();
@@ -31,11 +31,11 @@ exports.isSeller = catchAsyncErrors(async (req, res, next) => {
 
   const decoded = jwt.verify(shop_token, process.env.JWT_SECRET);
 
-  req.seller = await Shop.findById(decoded.id);
+  req.shop = await Shop.findById(decoded.id);
 
-  if (!res.seller) {
-    res.clearCookie("shop-token", null);
-    return next(new LWPError("Token not valid", 401));
+  if (!req.shop) {
+    res.clearCookie("shop_token");
+    return next(new LWPError("Token is not valid! Login to continue", 401));
   }
 
   next();

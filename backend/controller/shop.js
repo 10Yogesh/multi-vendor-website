@@ -14,15 +14,15 @@ shopRouter.get(
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const seller = await Shop.findById(req.seller._id);
+      const shop = await Shop.findById(req.shop._id);
 
-      if (!seller) {
-        return next(new ErrorHandler("User doesn't exists", 400));
+      if (!shop) {
+        return next(new ErrorHandler("Shop doesn't exists", 400));
       }
 
       res.status(200).json({
         success: true,
-        seller,
+        user: shop,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
@@ -33,7 +33,7 @@ shopRouter.get(
 shopRouter.post(
   "/create",
   catchAsyncErrors(async (req, res, next) => {
-    const { name, email, password, address, zipCode, phoneNumber } = req.body;
+    const { name, email, password, phoneNumber, address, zipCode } = req.body;
 
     if (!name) {
       return next(new LWPError("Name cannot be empty", 400));
@@ -43,16 +43,8 @@ shopRouter.post(
       return next(new LWPError("Password cannot be empty", 400));
     }
 
-    if (!address) {
-      return next(new LWPError("Address cannot be empty", 400));
-    }
-
-    if (!zipCode) {
-      return next(new LWPError("zipCode cannot be empty", 400));
-    }
-
-    if (!phoneNumber) {
-      return next(new LWPError("phone Number cannot be empty", 400));
+    if (!email) {
+      return next(new LWPError("Email cannot be empty", 400));
     }
 
     // Email validation
@@ -73,10 +65,9 @@ shopRouter.post(
       email,
       password,
       phoneNumber,
-      zipCode,
       address,
+      zipCode,
     });
-    // TODO change the port
     const activationUrl = `http://localhost:5173/shop-activation/${activationToken}`;
     await sendMail({
       email: email,
@@ -90,12 +81,12 @@ shopRouter.post(
 );
 
 shopRouter.get(
-  "/activation",
+  "/activation/:token",
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { token } = req.params;
 
-      const { name, email, password, address, zipCode, phoneNumber } =
+      const { name, email, password, phoneNumber, address, zipCode } =
         jwt.verify(token, process.env.JWT_SECRET);
 
       const allShops = await Shop.find({ email });
@@ -111,9 +102,9 @@ shopRouter.get(
         name,
         email,
         password,
+        phoneNumber,
         address,
         zipCode,
-        phoneNumber,
       });
       sendToken(shopCreated, 201, res, "shop_token");
     } catch (err) {

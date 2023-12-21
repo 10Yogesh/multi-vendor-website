@@ -1,18 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { activateShopAsync, shopLoginAsync, createShopAsync} from "../actions/shop";
+import {
+  shopLoginAsync,
+  createShopAsync,
+  activateShopAsync,
+  shopAutoLoginAsync,
+} from "../actions/shop";
 
 interface Shop {
   _id: string;
   name: string;
   email: string;
-  
 }
 interface ShopState {
   loading: "idle" | "pending" | "succeeded" | "failed";
   isAuthenticated: boolean;
   error: string | null;
   shop: Shop | null;
-  
 }
 
 const initialState: ShopState = {
@@ -20,7 +23,6 @@ const initialState: ShopState = {
   isAuthenticated: false,
   error: null,
   shop: null,
-  
 };
 
 const shopSlice = createSlice({
@@ -67,6 +69,18 @@ const shopSlice = createSlice({
       .addCase(activateShopAsync.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message || "An error occurred";
+        throw action.error;
+      })
+      .addCase(shopAutoLoginAsync.pending, (state) => {
+        state.loading = "pending";
+      })
+      .addCase(shopAutoLoginAsync.fulfilled, (state, action) => {
+        state.loading = "succeeded";
+        state.isAuthenticated = true;
+        state.shop = action.payload.user;
+      })
+      .addCase(shopAutoLoginAsync.rejected, (state, action) => {
+        state.loading = "failed";
         throw action.error;
       });
   },
