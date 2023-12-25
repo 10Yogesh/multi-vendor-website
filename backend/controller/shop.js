@@ -6,6 +6,7 @@ const LWPError = require("../utils/error");
 const sendToken = require("../utils/jwtToken");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const { isSeller } = require("../middleware/auth");
+const bcrypt = require("bcrypt");
 
 const shopRouter = express.Router();
 
@@ -106,6 +107,7 @@ shopRouter.get(
         address,
         zipCode,
       });
+
       sendToken(shopCreated, 201, res, "shop_token");
     } catch (err) {
       return next(new LWPError(err, 500));
@@ -134,7 +136,7 @@ shopRouter.post(
       }
 
       const isPasswordMatched = await shop.comparePassword(password);
-
+      // const isPasswordMatched = await bcrypt.compare(password, shop.password);
       if (!isPasswordMatched) {
         return next(new LWPError("The provided password doesn't match", 401));
       }
