@@ -2,6 +2,7 @@ const loadEnv = require("dotenv");
 const app = require("./app");
 const db = require("./db/db");
 const configureSocket = require("./socket");
+const http = require("http");
 
 loadEnv.config({
   path: "config/.env",
