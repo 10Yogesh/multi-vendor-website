@@ -5,16 +5,32 @@ import { toast } from "react-toastify";
 import lwpStyles from "../../styles";
 import ProductDetailsCard from "./ProductDetailsCard";
 import { Product } from "../../type/product";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, LWPState } from "../../redux/store";
+import { addToCart } from "../../redux/reducers/user";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { cart } = useSelector((state: LWPState) => state.user);
+  const dispatch = useDispatch<AppDispatch>();
   const [open, setOpen] = useState(false);
 
   const addToCartHandler = (id: string) => {
-    //
+    const isItemExist = cart.find((i) => i._id === id);
+    if (isItemExist) {
+      toast.error("Item already exists");
+    } else {
+      if (product.stock < 1) {
+        toast.error("Limited stock");
+      } else {
+        const cartProduct = { ...product, quantity: 1 };
+        dispatch(addToCart(cartProduct));
+        toast.success("Item added succesfully");
+      }
+    }
   };
 
   return (

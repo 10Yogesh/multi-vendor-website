@@ -2,15 +2,34 @@ import React from "react";
 import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import lwpStyles from "../styles";
+import { AppDispatch, LWPState } from "../redux/store";
+import CartCard from "./CartCard";
+import { CartProduct } from "../type/product";
+import { addToCart, removeFromCart } from "../redux/reducers/user";
 
 interface CartProps {
   setOpenCart: (val: boolean) => void;
 }
 
 const Cart: React.FC<CartProps> = ({ setOpenCart }) => {
-  const { cart } = useSelector(() => ({ cart: [] }));
+  const dispatch = useDispatch<AppDispatch>();
+  const { cart } = useSelector((state: LWPState) => state.user);
+
+  const removeFromCartHandler = (data: CartProduct) => {
+    dispatch(removeFromCart(data._id));
+  };
+
+  const quantityChangeHandler = (data: CartProduct) => {
+    dispatch(addToCart(data));
+  };
+
+  const totalPrice = cart.reduce(
+    (acc, item) =>
+      acc + item.quantity * (item.discountPrice || item.originalPrice),
+    0
+  );
 
   return (
     <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10">
@@ -47,7 +66,14 @@ const Cart: React.FC<CartProps> = ({ setOpenCart }) => {
               {/* cart Single Items */}
               <br />
               <div className="w-full border-t">
-                {cart && cart.map(() => <p>Cart Here</p>)}
+                {cart.map((cartItem) => (
+                  <CartCard
+                    key={cartItem._id}
+                    product={cartItem}
+                    quantityChangeHandler={quantityChangeHandler}
+                    removeFromCartHandler={removeFromCartHandler}
+                  />
+                ))}
               </div>
             </div>
 
@@ -58,7 +84,7 @@ const Cart: React.FC<CartProps> = ({ setOpenCart }) => {
                   className={`h-[45px] flex items-center justify-center w-[100%] bg-[#e44343] rounded-[5px]`}
                 >
                   <h1 className="text-[#fff] text-[18px] font-[600]">
-                    Checkout Now (USD$100)
+                    Checkout Now (USD$100 {totalPrice})
                   </h1>
                 </div>
               </Link>
