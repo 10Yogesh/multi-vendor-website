@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import Login from "./pages/auth/user/Login";
 import Register from "./pages/auth/user/Register";
 import ActivationPage from "./pages/activation/ActivationPage";
@@ -17,10 +19,40 @@ import ShopAllProducts from "./pages/shop/AllProducts";
 import ProductDetails from "./pages/product/ProductDetail";
 import Products from "./pages/product/Product";
 import TestSocket from "./pages/TestSocket";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
+import { useEffect, useState } from "react";
+import lwpAxios from "./config/axiosConfig";
+import PaymentPage from "./pages/payment/PaymentPage";
 
 function App() {
+  const [stripeApikey, setStripeApiKey] = useState("");
+
+  async function getStripeApikey() {
+    const { data } = await lwpAxios.get(`/payment/stripeapikey`);
+    setStripeApiKey(data.stripeApikey);
+  }
+
+  useEffect(() => {
+    getStripeApikey();
+  }, []);
+
   return (
     <BrowserRouter>
+      {stripeApikey && (
+        <Elements stripe={loadStripe(stripeApikey)}>
+          <Routes>
+            <Route
+              path="/payment"
+              element={
+                <ProtectedRoute>
+                  <PaymentPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Elements>
+      )}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -35,6 +67,14 @@ function App() {
         />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <CheckoutPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/shop-dashboard"
           element={

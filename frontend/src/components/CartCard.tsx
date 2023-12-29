@@ -12,11 +12,11 @@ interface CartCardProps {
   removeFromCartHandler: (cartProduct: CartProduct) => void;
 }
 
-const CartCard: React.FC<CartCardProps> = ({
+const CartCard = ({
   product,
   quantityChangeHandler,
   removeFromCartHandler,
-}) => {
+}: CartCardProps) => {
   const [quantity, setQuantity] = useState(product.quantity);
   const totalPrice =
     (product.discountPrice || product.originalPrice) * quantity;
