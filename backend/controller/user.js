@@ -75,7 +75,7 @@ userRouter.get(
     try {
       const { token } = req.params;
 
-      const { name, email, password } = jwt.verify(
+      const { name, email, phoneNumber, password } = jwt.verify(
         token,
         process.env.JWT_SECRET
       );
@@ -89,7 +89,12 @@ userRouter.get(
         );
       }
 
-      const userCreated = await UserModel.create({ name, email, password });
+      const userCreated = await UserModel.create({
+        name,
+        email,
+        password,
+        phoneNumber,
+      });
       sendToken(userCreated, 201, res);
     } catch (err) {
       return next(new LWPError(err, 500));

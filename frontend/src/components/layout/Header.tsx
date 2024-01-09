@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
         <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
           <div>
             <Link to="/">
-              <p>LWP - Logo</p>
+              <p> Logo</p>
             </Link>
           </div>
           <div className="w-[50%] relative">
