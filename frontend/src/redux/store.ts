@@ -11,7 +11,7 @@ const store = configureStore({
   },
 });
 
-export type LWPState = ReturnType<typeof store.getState>;
+export type YKState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 

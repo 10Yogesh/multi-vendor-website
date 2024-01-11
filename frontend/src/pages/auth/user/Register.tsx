@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import lwpStyles from "../../../styles";
-import { AppDispatch, LWPState } from "../../../redux/store";
+import ykStyles from "../../../styles";
+import { AppDispatch, YKState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserAsync } from "../../../redux/actions/user";
 import { AxiosError } from "axios";
@@ -11,7 +11,7 @@ import { AxiosError } from "axios";
 const Register = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { isAuthenticated, user } = useSelector(
-    (state: LWPState) => state.user
+    (state: YKState) => state.user
   );
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -150,7 +150,7 @@ const Register = () => {
                 Submit
               </button>
             </div>
-            <div className={`${lwpStyles.noramlFlex} w-full`}>
+            <div className={`${ykStyles.noramlFlex} w-full`}>
               <h4>Already have an account?</h4>
               <Link to="/login" className="text-blue-600 pl-2">
                 Sign In

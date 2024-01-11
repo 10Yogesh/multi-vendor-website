@@ -1,4 +1,4 @@
-const lwpStyles = {
+const ykStyles = {
   custom_container: "w-11/12 hidden sm:block",
   heading:
     "text-[27px] text-center md:text-start font-[600] font-Roboto pb-[20px]",
@@ -19,4 +19,4 @@ const lwpStyles = {
   noramlFlex: "flex items-center",
 };
 
-export default lwpStyles;
+export default ykStyles;

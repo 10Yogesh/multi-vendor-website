@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiOutlineMessage, AiOutlineShoppingCart } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { useDispatch } from "react-redux";
-import lwpStyles from "../../styles";
+import ykStyles from "../../styles";
 import { Product } from "../../type/product";
 
 interface ProductDetailsCardProps {
@@ -49,7 +49,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               <div className="w-full 800px:w-[50%]">
                 <p>Image Here</p>
                 <div
-                  className={`${lwpStyles.button} bg-[#000] mt-4 rounded-[4px] h-11`}
+                  className={`${ykStyles.button} bg-[#000] mt-4 rounded-[4px] h-11`}
                   onClick={handleMessageSubmit}
                 >
                   <span className="text-[#fff] flex items-center">
@@ -60,16 +60,16 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
               </div>
 
               <div className="w-full 800px:w-[50%] pt-5 pl-[5px] pr-[5px]">
-                <h1 className={`${lwpStyles.productTitle} text-[20px]`}>
+                <h1 className={`${ykStyles.productTitle} text-[20px]`}>
                   {product.name}
                 </h1>
                 <p>{product.description}</p>
 
                 <div className="flex pt-3">
-                  <h4 className={`${lwpStyles.productDiscountPrice}`}>
+                  <h4 className={`${ykStyles.productDiscountPrice}`}>
                     {product.discountPrice}$
                   </h4>
-                  <h3 className={`${lwpStyles.price}`}>
+                  <h3 className={`${ykStyles.price}`}>
                     {product.originalPrice ? product.originalPrice + "$" : null}
                   </h3>
                 </div>
@@ -93,7 +93,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
                   </div>
                 </div>
                 <div
-                  className={`${lwpStyles.button} mt-6 rounded-[4px] h-11 flex items-center`}
+                  className={`${ykStyles.button} mt-6 rounded-[4px] h-11 flex items-center`}
                   onClick={() => addToCartHandler(product._id)}
                 >
                   <span className="text-[#fff] flex items-center">

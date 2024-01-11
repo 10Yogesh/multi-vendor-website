@@ -1,15 +1,18 @@
 const express = require("express");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const LWPError = require("../utils/error");
+const YKError = require("../utils/error");
 const Order = require("../model/Order");
+const { isAuthenticated } = require("../middleware/auth");
 
 const orderRouter = express.Router();
 
 orderRouter.post(
   "/",
+  isAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const { cart, shippingAddress, userId, totalPrice, paymentInfo } = req.body;
+      const { cart, shippingAddress, userId, totalPrice, paymentInfo } =
+        req.body;
 
       //   group cart items by shopId
       const shopItemsMap = new Map();
@@ -19,6 +22,7 @@ orderRouter.post(
         if (!shopItemsMap.has(shopId)) {
           shopItemsMap.set(shopId, []);
         }
+        item.productId = item._id;
         shopItemsMap.get(shopId).push(item);
       }
 
@@ -41,7 +45,7 @@ orderRouter.post(
         orders,
       });
     } catch (error) {
-      return next(new LWPError(error.message, 500));
+      return next(new YKError(error.message, 500));
     }
   })
 );
@@ -50,7 +54,7 @@ orderRouter.get(
   "/user/:userId",
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const orders = await Order.find({ "userId": req.params.userId }).sort({
+      const orders = await Order.find({ userId: req.params.userId }).sort({
         createdAt: -1,
       });
 
@@ -59,7 +63,7 @@ orderRouter.get(
         orders,
       });
     } catch (error) {
-      return next(new LWPError(error.message, 500));
+      return next(new YKError(error.message, 500));
     }
   })
 );
@@ -80,7 +84,7 @@ orderRouter.get(
         orders,
       });
     } catch (error) {
-      return next(new LWPError(error.message, 500));
+      return next(new YKError(error.message, 500));
     }
   })
 );

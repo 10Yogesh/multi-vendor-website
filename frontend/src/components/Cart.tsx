@@ -3,8 +3,8 @@ import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import lwpStyles from "../styles";
-import { AppDispatch, LWPState } from "../redux/store";
+import ykStyles from "../styles";
+import { AppDispatch, YKState } from "../redux/store";
 import CartCard from "./CartCard";
 import { CartProduct } from "../type/product";
 import { addToCart, removeFromCart } from "../redux/reducers/user";
@@ -15,7 +15,7 @@ interface CartProps {
 
 const Cart: React.FC<CartProps> = ({ setOpenCart }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { cart } = useSelector((state: LWPState) => state.user);
+  const { cart } = useSelector((state: YKState) => state.user);
 
   const removeFromCartHandler = (data: CartProduct) => {
     dispatch(removeFromCart(data._id));
@@ -56,7 +56,7 @@ const Cart: React.FC<CartProps> = ({ setOpenCart }) => {
                 />
               </div>
               {/* Item length */}
-              <div className={`${lwpStyles.noramlFlex} p-4`}>
+              <div className={`${ykStyles.noramlFlex} p-4`}>
                 <IoBagHandleOutline size={25} />
                 <h5 className="pl-2 text-[20px] font-[500]">
                   {cart && cart.length} items

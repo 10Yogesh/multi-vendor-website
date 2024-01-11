@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/mailer");
 const UserModel = require("../model/User");
-const LWPError = require("../utils/error");
+const YKError = require("../utils/error");
 const sendToken = require("../utils/jwtToken");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const { isAuthenticated } = require("../middleware/auth");
@@ -17,7 +17,7 @@ userRouter.get(
       const user = await UserModel.findById(req.user._id);
 
       if (!user) {
-        return next(new LWPError("User doesn't exists", 400));
+        return next(new YKError("User doesn't exists", 400));
       }
 
       res.status(200).json({
@@ -25,7 +25,7 @@ userRouter.get(
         user,
       });
     } catch (error) {
-      return next(new LWPError(error.message, 500));
+      return next(new YKError(error.message, 500));
     }
   })
 );
@@ -36,11 +36,11 @@ userRouter.post(
     const { name, email, password } = req.body;
 
     if (!name) {
-      return next(new LWPError("Name cannot be empty", 400));
+      return next(new YKError("Name cannot be empty", 400));
     }
 
     if (!password) {
-      return next(new LWPError("Password cannot be empty", 400));
+      return next(new YKError("Password cannot be empty", 400));
     }
 
     // Email validation
@@ -52,7 +52,7 @@ userRouter.post(
     const isEmailExists = allUsers.length > 0;
     if (isEmailExists) {
       return next(
-        new LWPError("User with the provided email already exists", 400)
+        new YKError("User with the provided email already exists", 400)
       );
     }
 
@@ -85,7 +85,7 @@ userRouter.get(
       const isEmailExists = allUsers.length > 0;
       if (isEmailExists) {
         return next(
-          new LWPError("User with the provided email already exists", 401)
+          new YKError("User with the provided email already exists", 401)
         );
       }
 
@@ -97,7 +97,7 @@ userRouter.get(
       });
       sendToken(userCreated, 201, res);
     } catch (err) {
-      return next(new LWPError(err, 500));
+      return next(new YKError(err, 500));
     }
   })
 );
@@ -113,24 +113,22 @@ userRouter.post(
       const { email, password } = req.body;
       // validate email and password
       if (!email || !password) {
-        return next(new LWPError("Email and password are required", 400));
+        return next(new YKError("Email and password are required", 400));
       }
       const user = await UserModel.findOne({ email }).select("+password");
       if (!user) {
-        return next(
-          new LWPError("User with the provided email not found", 404)
-        );
+        return next(new YKError("User with the provided email not found", 404));
       }
 
       const isPasswordMatched = await user.comparePassword(password);
 
       if (!isPasswordMatched) {
-        return next(new LWPError("The provided password doesn't match", 401));
+        return next(new YKError("The provided password doesn't match", 401));
       }
       user.password = undefined;
       sendToken(user, 200, res);
     } catch (err) {
-      return next(new LWPError(err, 500));
+      return next(new YKError(err, 500));
     }
   })
 );

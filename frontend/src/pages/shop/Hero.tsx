@@ -1,6 +1,6 @@
 import { AiOutlineMoneyCollect } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import lwpStyles from "../../styles";
+import ykStyles from "../../styles";
 
 const ShopHero = () => {
   return (
@@ -15,7 +15,7 @@ const ShopHero = () => {
               fill="#00000085"
             />
             <h3
-              className={`${lwpStyles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
+              className={`${ykStyles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
             >
               Account Balance{" "}
               <span className="text-[16px]">(with 10% service charge)</span>

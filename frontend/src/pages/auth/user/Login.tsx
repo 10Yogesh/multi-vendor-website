@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import lwpStyles from "../../../styles";
+import ykStyles from "../../../styles";
 import { loginAsync } from "../../../redux/actions/user";
-import { AppDispatch, LWPState } from "../../../redux/store";
+import { AppDispatch, YKState } from "../../../redux/store";
 import { AxiosError } from "axios";
 import Loader from "../../../components/Loader";
 
@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { isAuthenticated, user, loading } = useSelector(
-    (state: LWPState) => state.user
+    (state: YKState) => state.user
   );
   const from = location.state?.from?.pathname || "/";
 
@@ -106,8 +106,8 @@ const Login = () => {
                 )}
               </div>
             </div>
-            <div className={`${lwpStyles.noramlFlex} justify-between`}>
-              <div className={`${lwpStyles.noramlFlex}`}>
+            <div className={`${ykStyles.noramlFlex} justify-between`}>
+              <div className={`${ykStyles.noramlFlex}`}>
                 <input
                   checked={rememberMe}
                   onChange={(e) => {
@@ -142,7 +142,7 @@ const Login = () => {
                 Login
               </button>
             </div>
-            <div className={`${lwpStyles.noramlFlex} w-full`}>
+            <div className={`${ykStyles.noramlFlex} w-full`}>
               <h4>Not have any account?</h4>
               <Link to="/register" className="text-blue-600 pl-2">
                 Register

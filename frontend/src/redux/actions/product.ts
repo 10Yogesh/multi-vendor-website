@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import lwpAxios from "../../config/axiosConfig";
+import ykAxios from "../../config/axiosConfig";
 import { AxiosError } from "axios";
 import { Product } from "../../type/product";
 
@@ -7,7 +7,7 @@ export const createProductAsync = createAsyncThunk(
   "product/create",
   async (product: Product) => {
     try {
-      const response = await lwpAxios.post("/product/", product, {
+      const response = await ykAxios.post("/product/", product, {
         withCredentials: true,
       });
       return response.data;
@@ -27,7 +27,7 @@ export const getAllProductAsync = createAsyncThunk(
   "product/getList",
   async () => {
     try {
-      const response = await lwpAxios.get("/product/", {
+      const response = await ykAxios.get("/product/", {
         withCredentials: true,
       });
       return response.data;
@@ -47,7 +47,7 @@ export const deletelProductAsync = createAsyncThunk(
   "product/delete",
   async (id: string) => {
     try {
-      await lwpAxios.delete(`/product/${id}`, {
+      await ykAxios.delete(`/product/${id}`, {
         withCredentials: true,
       });
       return id;

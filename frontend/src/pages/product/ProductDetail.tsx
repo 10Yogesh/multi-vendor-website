@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { AiOutlineMessage, AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import lwpStyles from "../../styles";
+import ykStyles from "../../styles";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
-import { LWPState } from "../../redux/store";
+import { YKState } from "../../redux/store";
 import { Product } from "../../type/product";
 
 const ProductDetails = () => {
-  const { products } = useSelector((state: LWPState) => state.product);
+  const { products } = useSelector((state: YKState) => state.product);
   const [count, setCount] = useState(1);
 
   const { id } = useParams();
@@ -35,17 +35,17 @@ const ProductDetails = () => {
       <Header activeHeading={1} />
       <div className="bg-white">
         {data ? (
-          <div className={`${lwpStyles.section} w-[90%] 800px:w-[80%]`}>
+          <div className={`${ykStyles.section} w-[90%] 800px:w-[80%]`}>
             <div className="w-full py-5">
               <div className="block w-full 800px:flex">
                 <div className="w-full 800px:w-[50%] pt-5">
-                  <h1 className={`${lwpStyles.productTitle}`}>{data.name}</h1>
+                  <h1 className={`${ykStyles.productTitle}`}>{data.name}</h1>
                   <p>{data.description}</p>
                   <div className="flex pt-3">
-                    <h4 className={`${lwpStyles.productDiscountPrice}`}>
+                    <h4 className={`${ykStyles.productDiscountPrice}`}>
                       {data.discountPrice}$
                     </h4>
-                    <h3 className={`${lwpStyles.price}`}>
+                    <h3 className={`${ykStyles.price}`}>
                       {data.originalPrice ? data.originalPrice + "$" : null}
                     </h3>
                   </div>
@@ -70,7 +70,7 @@ const ProductDetails = () => {
                     </div>
                   </div>
                   <div
-                    className={`${lwpStyles.button} !mt-6 !rounded !h-11 flex items-center`}
+                    className={`${ykStyles.button} !mt-6 !rounded !h-11 flex items-center`}
                     onClick={() => {}}
                   >
                     <span className="text-white flex items-center">
@@ -83,13 +83,13 @@ const ProductDetails = () => {
                     </Link>
                     <div className="pr-8">
                       <Link to={`/shop/preview/${data?.shopId}`}>
-                        <h3 className={`${lwpStyles.shop_name} pb-1 pt-1`}>
+                        <h3 className={`${ykStyles.shop_name} pb-1 pt-1`}>
                           Name of the Shop
                         </h3>
                       </Link>
                     </div>
                     <div
-                      className={`${lwpStyles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
+                      className={`${ykStyles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
                       onClick={() => {}}
                     >
                       <span className="text-white flex items-center">

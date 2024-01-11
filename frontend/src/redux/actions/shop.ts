@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import lwpAxios from "../../config/axiosConfig";
+import ykAxios from "../../config/axiosConfig";
 import { AxiosError } from "axios";
 
 interface ShopLoginData {
@@ -16,7 +16,7 @@ export const shopLoginAsync = createAsyncThunk(
   "shop/login",
   async (loginData: ShopLoginData) => {
     try {
-      const response = await lwpAxios.post("/shop/login", loginData, {
+      const response = await ykAxios.post("/shop/login", loginData, {
         withCredentials: true,
       });
       return response.data;
@@ -34,7 +34,7 @@ export const createShopAsync = createAsyncThunk(
   "shop/create",
   async (loginData: ShopLoginData) => {
     try {
-      const response = await lwpAxios.post("/shop/create", loginData, {
+      const response = await ykAxios.post("/shop/create", loginData, {
         withCredentials: true,
       });
       return response.data;
@@ -52,7 +52,7 @@ export const activateShopAsync = createAsyncThunk(
   "shop/active",
   async (token: string) => {
     try {
-      const response = await lwpAxios.get(`/shop/activation/${token}`);
+      const response = await ykAxios.get(`/shop/activation/${token}`);
       return response.data;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
@@ -68,7 +68,7 @@ export const shopAutoLoginAsync = createAsyncThunk(
   "shop/autoLogin",
   async () => {
     try {
-      const response = await lwpAxios.get("/shop", {
+      const response = await ykAxios.get("/shop", {
         withCredentials: true,
       });
       return response.data;
@@ -80,4 +80,22 @@ export const shopAutoLoginAsync = createAsyncThunk(
       }
     }
   }
-)
+);
+
+export const getShopOrders = createAsyncThunk(
+  "shop/orders",
+  async (shopId: string) => {
+    try {
+      const response = await ykAxios.get(`/order/shop/${shopId}`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        throw new Error("Login failed: " + error.response?.data.message);
+      } else {
+        return Promise.reject();
+      }
+    }
+  }
+);

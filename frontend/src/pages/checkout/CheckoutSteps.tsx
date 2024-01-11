@@ -1,4 +1,4 @@
-import lwpStyles from "../../styles";
+import ykStyles from "../../styles";
 
 interface CheckoutStepsProps {
   active: number;
@@ -9,9 +9,9 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({ active }) => {
   return (
     <div className="w-full flex justify-center">
       <div className="w-[90%] 800px:w-[50%] flex items-center flex-wrap">
-        <div className={`${lwpStyles.noramlFlex}`}>
-          <div className={`${lwpStyles.cart_button}`}>
-            <span className={`${lwpStyles.cart_button_text}`}>1.Shipping</span>
+        <div className={`${ykStyles.noramlFlex}`}>
+          <div className={`${ykStyles.cart_button}`}>
+            <span className={`${ykStyles.cart_button_text}`}>1.Shipping</span>
           </div>
           <div
             className={`${
@@ -22,19 +22,19 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({ active }) => {
           />
         </div>
 
-        <div className={`${lwpStyles.noramlFlex}`}>
+        <div className={`${ykStyles.noramlFlex}`}>
           <div
             className={`${
               active > 1
-                ? `${lwpStyles.cart_button}`
-                : `${lwpStyles.cart_button} !bg-[#FDE1E6]`
+                ? `${ykStyles.cart_button}`
+                : `${ykStyles.cart_button} !bg-[#FDE1E6]`
             }`}
           >
             <span
               className={`${
                 active > 1
-                  ? `${lwpStyles.cart_button_text}`
-                  : `${lwpStyles.cart_button_text} !text-[#f63b60]`
+                  ? `${ykStyles.cart_button_text}`
+                  : `${ykStyles.cart_button_text} !text-[#f63b60]`
               }`}
             >
               2.Payment
@@ -42,7 +42,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({ active }) => {
           </div>
         </div>
 
-        <div className={`${lwpStyles.noramlFlex}`}>
+        <div className={`${ykStyles.noramlFlex}`}>
           <div
             className={`${
               active > 3
@@ -53,15 +53,15 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({ active }) => {
           <div
             className={`${
               active > 2
-                ? `${lwpStyles.cart_button}`
-                : `${lwpStyles.cart_button} !bg-[#FDE1E6]`
+                ? `${ykStyles.cart_button}`
+                : `${ykStyles.cart_button} !bg-[#FDE1E6]`
             }`}
           >
             <span
               className={`${
                 active > 2
-                  ? `${lwpStyles.cart_button_text}`
-                  : `${lwpStyles.cart_button_text} !text-[#f63b60]`
+                  ? `${ykStyles.cart_button_text}`
+                  : `${ykStyles.cart_button_text} !text-[#f63b60]`
               }`}
             >
               3.Success

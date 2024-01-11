@@ -7,20 +7,18 @@ import { BiMenuAltLeft } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
-import lwpStyles from "../../styles";
+import ykStyles from "../../styles";
 import Dropdown from "./Dropdown";
 import Navbar from "./Navbar";
 import Cart from "../Cart";
-import { LWPState } from "../../redux/store";
+import { YKState } from "../../redux/store";
 
 interface HeaderProp {
   activeHeading: number;
 }
 
 const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
-  const { isAuthenticated, cart } = useSelector(
-    (state: LWPState) => state.user
-  );
+  const { isAuthenticated, cart } = useSelector((state: YKState) => state.user);
   const isSeller = true;
   const [searchTerm] = useState("");
   const [active, setActive] = useState(false);
@@ -40,7 +38,7 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
 
   return (
     <>
-      <div className={`${lwpStyles.section}`}>
+      <div className={`${ykStyles.section}`}>
         <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
           <div>
             <Link to="/">
@@ -61,7 +59,7 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
             />
           </div>
 
-          <div className={`${lwpStyles.button}`}>
+          <div className={`${ykStyles.button}`}>
             <Link to={`${isSeller ? "/shop-dashboard" : "/shop-create"}`}>
               <h1 className="text-[#fff] flex items-center">
                 {isSeller ? "Go Dashboard" : "Become Seller"}{" "}
@@ -77,7 +75,7 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
         } transition hidden 800px:flex items-center justify-between w-full bg-[#3321c8] h-[70px]`}
       >
         <div
-          className={`${lwpStyles.section} relative ${lwpStyles.noramlFlex} justify-between`}
+          className={`${ykStyles.section} relative ${ykStyles.noramlFlex} justify-between`}
         >
           <div onClick={() => setDropDown(!dropDown)}>
             <div className="relative h-[60px] mt-[10px] w-[270px] hidden 1000px:block">
@@ -100,12 +98,12 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
               ) : null}
             </div>
           </div>
-          <div className={`${lwpStyles.noramlFlex}`}>
+          <div className={`${ykStyles.noramlFlex}`}>
             <Navbar active={activeHeading} />
           </div>
 
           <div className="flex">
-            <div className={`${lwpStyles.noramlFlex}`}>
+            <div className={`${ykStyles.noramlFlex}`}>
               <div
                 className="relative cursor-pointer mr-[15px]"
                 onClick={() => setOpenCart(true)}
@@ -122,7 +120,7 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
               </div>
             </div>
 
-            <div className={`${lwpStyles.noramlFlex}`}>
+            <div className={`${ykStyles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px]">
                 {isAuthenticated ? (
                   <Link to="/profile">User Img</Link>
@@ -195,7 +193,7 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
               </div>
 
               <Navbar active={activeHeading} />
-              <div className={`${lwpStyles.button} ml-4 !rounded-[4px]`}>
+              <div className={`${ykStyles.button} ml-4 !rounded-[4px]`}>
                 <Link to="/shop-create">
                   <h1 className="text-[#fff] flex items-center">
                     Become Seller <IoIosArrowForward className="ml-1" />

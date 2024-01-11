@@ -33,7 +33,7 @@ const ShopSideBar: React.FC<ShopSideBarProps> = ({ active }) => {
       </div>
 
       <div className="w-full flex items-center p-4">
-        <Link to="/shop-products" className="w-full flex items-center">
+        <Link to="/all-orders" className="w-full flex items-center">
           <FiShoppingBag
             size={30}
             color={`${active === 2 ? "crimson" : "#555"}`}

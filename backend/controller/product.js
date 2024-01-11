@@ -1,5 +1,5 @@
 const express = require("express");
-const LWPError = require("../utils/error");
+const YKError = require("../utils/error");
 const Product = require("../model/Product");
 const Shop = require("../model/Shop");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
@@ -13,12 +13,12 @@ productRouter.get(
     try {
       const products = await Product.find().sort({ createdAt: -1 });
 
-      res.status(201).json({
+      res.status(200).json({
         success: true,
         products,
       });
     } catch (error) {
-      return next(new LWPError(error, 400));
+      return next(new YKError(error, 400));
     }
   })
 );
@@ -38,7 +38,7 @@ productRouter.post(
         product,
       });
     } catch (error) {
-      return next(new LWPError(error, 400));
+      return next(new YKError(error, 400));
     }
   })
 );
@@ -55,7 +55,7 @@ productRouter.get(
         products,
       });
     } catch (error) {
-      return next(new LWPError(error, 400));
+      return next(new YKError(error, 400));
     }
   })
 );
@@ -68,7 +68,7 @@ productRouter.delete(
       const product = await Product.findByIdAndDelete(req.params.id);
 
       if (!product) {
-        return next(new LWPError("Product is not found with this id", 404));
+        return next(new YKError("Product is not found with this id", 404));
       }
 
       res.status(201).json({
@@ -76,7 +76,7 @@ productRouter.delete(
         message: "Product Deleted successfully!",
       });
     } catch (error) {
-      return next(new LWPError(error, 400));
+      return next(new YKError(error, 400));
     }
   })
 );

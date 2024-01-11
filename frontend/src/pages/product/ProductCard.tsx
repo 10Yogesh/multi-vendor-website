@@ -2,11 +2,11 @@ import { useState } from "react";
 import { AiOutlineEye, AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import lwpStyles from "../../styles";
+import ykStyles from "../../styles";
 import ProductDetailsCard from "./ProductDetailsCard";
 import { Product } from "../../type/product";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, LWPState } from "../../redux/store";
+import { AppDispatch, YKState } from "../../redux/store";
 import { addToCart } from "../../redux/reducers/user";
 
 interface ProductCardProps {
@@ -14,7 +14,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { cart } = useSelector((state: LWPState) => state.user);
+  const { cart } = useSelector((state: YKState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   const [open, setOpen] = useState(false);
 
@@ -49,13 +49,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           <div className="py-2 flex items-center justify-between">
             <div className="flex">
-              <h5 className={`${lwpStyles.productDiscountPrice}`}>
+              <h5 className={`${ykStyles.productDiscountPrice}`}>
                 {product.originalPrice === 0
                   ? product.originalPrice
                   : product.discountPrice}
                 $
               </h5>
-              <h4 className={`${lwpStyles.price}`}>
+              <h4 className={`${ykStyles.price}`}>
                 {product.originalPrice ? product.originalPrice + " $" : null}
               </h4>
             </div>

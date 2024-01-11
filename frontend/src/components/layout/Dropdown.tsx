@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import lwpStyles from "../../styles";
+import ykStyles from "../../styles";
 
 interface Category {
   id: number;
@@ -26,7 +26,7 @@ const Dropdown: React.FC<DropdownProps> = ({ categoriesData, setDropDown }) => {
         categoriesData.map((i, index: number) => (
           <div
             key={index}
-            className={`${lwpStyles.noramlFlex}`}
+            className={`${ykStyles.noramlFlex}`}
             onClick={() => submitHandle(i)}
           >
             <img

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import { CartProduct } from "../type/product";
 import { useState } from "react";
-import lwpStyles from "../styles";
+import ykStyles from "../styles";
 
 interface CartCardProps {
   product: CartProduct;
@@ -45,7 +45,7 @@ const CartCard = ({
       <div className="w-full flex items-center">
         <div>
           <div
-            className={`bg-[#e44343] border border-[#e4434373] rounded-full w-[25px] h-[25px] ${lwpStyles.noramlFlex} justify-center cursor-pointer`}
+            className={`bg-[#e44343] border border-[#e4434373] rounded-full w-[25px] h-[25px] ${ykStyles.noramlFlex} justify-center cursor-pointer`}
             onClick={() => increment()}
           >
             <HiPlus size={18} color="#fff" />

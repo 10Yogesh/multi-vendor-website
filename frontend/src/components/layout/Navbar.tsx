@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import lwpStyles from "../../styles";
+import ykStyles from "../../styles";
 import React from "react";
 import { navItems } from "../../static/data";
 
@@ -9,7 +9,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ active }) => {
   return (
-    <div className={`block 800px:${lwpStyles.noramlFlex}`}>
+    <div className={`block 800px:${ykStyles.noramlFlex}`}>
       {navItems &&
         navItems.map((i, index) => (
           <div className="flex" key={index}>

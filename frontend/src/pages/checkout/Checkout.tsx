@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { LWPState } from "../../redux/store";
-import lwpStyles from "../../styles";
+import { YKState } from "../../redux/store";
+import ykStyles from "../../styles";
 
 const Checkout = () => {
-  const { user, cart } = useSelector((state: LWPState) => state.user);
+  const { user, cart } = useSelector((state: YKState) => state.user);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -86,7 +86,7 @@ const Checkout = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className={`${lwpStyles.input} !w-[95%]`}
+                    className={`${ykStyles.input} !w-[95%]`}
                   />
                 </div>
                 <div className="w-[50%]">
@@ -96,7 +96,7 @@ const Checkout = () => {
                     value={email}
                     required
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`${lwpStyles.input}`}
+                    className={`${ykStyles.input}`}
                   />
                 </div>
               </div>
@@ -109,7 +109,7 @@ const Checkout = () => {
                     required
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className={`${lwpStyles.input} !w-[95%]`}
+                    className={`${ykStyles.input} !w-[95%]`}
                   />
                 </div>
                 <div className="w-[50%]">
@@ -119,7 +119,7 @@ const Checkout = () => {
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
                     required
-                    className={`${lwpStyles.input}`}
+                    className={`${ykStyles.input}`}
                   />
                 </div>
               </div>
@@ -171,7 +171,7 @@ const Checkout = () => {
                     required
                     value={address1}
                     onChange={(e) => setAddress1(e.target.value)}
-                    className={`${lwpStyles.input} !w-[95%]`}
+                    className={`${ykStyles.input} !w-[95%]`}
                   />
                 </div>
                 <div className="w-[50%]">
@@ -181,7 +181,7 @@ const Checkout = () => {
                     value={address2}
                     onChange={(e) => setAddress2(e.target.value)}
                     required
-                    className={`${lwpStyles.input}`}
+                    className={`${ykStyles.input}`}
                   />
                 </div>
               </div>
@@ -197,7 +197,7 @@ const Checkout = () => {
         </div>
       </div>
       <div
-        className={`${lwpStyles.button} w-[150px] 800px:w-[280px] mt-10`}
+        className={`${ykStyles.button} w-[150px] 800px:w-[280px] mt-10`}
         onClick={paymentSubmit}
       >
         <h5 className="text-white">Go to Payment</h5>

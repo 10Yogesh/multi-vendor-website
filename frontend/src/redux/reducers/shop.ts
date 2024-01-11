@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PaymentData } from "../../type/order";
+
 import {
   shopLoginAsync,
   createShopAsync,
   activateShopAsync,
   shopAutoLoginAsync,
+  getShopOrders,
 } from "../actions/shop";
 
 interface Shop {
@@ -16,6 +19,7 @@ interface ShopState {
   isAuthenticated: boolean;
   error: string | null;
   shop: Shop | null;
+  orders: Array<PaymentData>;
 }
 
 const initialState: ShopState = {
@@ -23,6 +27,7 @@ const initialState: ShopState = {
   isAuthenticated: false,
   error: null,
   shop: null,
+  orders: [],
 };
 
 const shopSlice = createSlice({
@@ -81,6 +86,9 @@ const shopSlice = createSlice({
       })
       .addCase(shopAutoLoginAsync.rejected, (state) => {
         state.loading = "failed";
+      })
+      .addCase(getShopOrders.fulfilled, (state, action) => {
+        state.orders = action.payload.orders;
       });
   },
 });

@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/mailer");
 const Shop = require("../model/Shop");
-const LWPError = require("../utils/error");
+const YKError = require("../utils/error");
 const sendToken = require("../utils/jwtToken");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const { isSeller } = require("../middleware/auth");
@@ -37,15 +37,15 @@ shopRouter.post(
     const { name, email, password, phoneNumber, address, zipCode } = req.body;
 
     if (!name) {
-      return next(new LWPError("Name cannot be empty", 400));
+      return next(new YKError("Name cannot be empty", 400));
     }
 
     if (!password) {
-      return next(new LWPError("Password cannot be empty", 400));
+      return next(new YKError("Password cannot be empty", 400));
     }
 
     if (!email) {
-      return next(new LWPError("Email cannot be empty", 400));
+      return next(new YKError("Email cannot be empty", 400));
     }
 
     // Email validation
@@ -57,7 +57,7 @@ shopRouter.post(
     const isEmailExists = allShops.length > 0;
     if (isEmailExists) {
       return next(
-        new LWPError("Shop with the provided email already exists", 400)
+        new YKError("Shop with the provided email already exists", 400)
       );
     }
 
@@ -95,7 +95,7 @@ shopRouter.get(
       const isEmailExists = allShops.length > 0;
       if (isEmailExists) {
         return next(
-          new LWPError("Shop with the provided email already exists", 401)
+          new YKError("Shop with the provided email already exists", 401)
         );
       }
 
@@ -110,7 +110,7 @@ shopRouter.get(
 
       sendToken(shopCreated, 201, res, "shop_token");
     } catch (err) {
-      return next(new LWPError(err, 500));
+      return next(new YKError(err, 500));
     }
   })
 );
@@ -126,24 +126,22 @@ shopRouter.post(
       const { email, password } = req.body;
       // validate email and password
       if (!email || !password) {
-        return next(new LWPError("Email and password are required", 400));
+        return next(new YKError("Email and password are required", 400));
       }
       const shop = await Shop.findOne({ email }).select("+password");
       if (!shop) {
-        return next(
-          new LWPError("Shop with the provided email not found", 404)
-        );
+        return next(new YKError("Shop with the provided email not found", 404));
       }
 
       const isPasswordMatched = await shop.comparePassword(password);
       // const isPasswordMatched = await bcrypt.compare(password, shop.password);
       if (!isPasswordMatched) {
-        return next(new LWPError("The provided password doesn't match", 401));
+        return next(new YKError("The provided password doesn't match", 401));
       }
 
       sendToken(shop, 200, res, "shop_token");
     } catch (err) {
-      return next(new LWPError(err, 500));
+      return next(new YKError(err, 500));
     }
   })
 );

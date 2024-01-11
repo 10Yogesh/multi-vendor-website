@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import lwpStyles from "../../../styles";
+import ykStyles from "../../../styles";
 import { shopLoginAsync } from "../../../redux/actions/shop";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
@@ -90,8 +90,8 @@ const ShopLogin = () => {
                 )}
               </div>
             </div>
-            <div className={`${lwpStyles.noramlFlex} justify-between`}>
-              <div className={`${lwpStyles.noramlFlex}`}>
+            <div className={`${ykStyles.noramlFlex} justify-between`}>
+              <div className={`${ykStyles.noramlFlex}`}>
                 <input
                   checked={rememberMe}
                   onChange={(e) => {
@@ -126,7 +126,7 @@ const ShopLogin = () => {
                 Login
               </button>
             </div>
-            <div className={`${lwpStyles.noramlFlex} w-full`}>
+            <div className={`${ykStyles.noramlFlex} w-full`}>
               <h4>Not have an account?</h4>
               <Link to="/shop-register" className="text-blue-600 pl-2">
                 Register Shop

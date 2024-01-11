@@ -1,4 +1,4 @@
-class LWPError extends Error {
+class YKError extends Error {
   constructor(message, statusCode) {
     super(message);
     this.statusCode = statusCode;
@@ -6,4 +6,4 @@ class LWPError extends Error {
     Error.captureStackTrace(this, this.constructor);
   }
 }
-module.exports = LWPError;
+module.exports = YKError;

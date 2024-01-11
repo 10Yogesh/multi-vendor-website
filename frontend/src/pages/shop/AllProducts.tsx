@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ShopHeader from "./Header";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import ShopSideBar from "./SideBar";
-import { AppDispatch, LWPState } from "../../redux/store";
+import { AppDispatch, YKState } from "../../redux/store";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { DataGrid, GridColDef } from "@material-ui/data-grid";
@@ -11,8 +11,8 @@ import { deletelProductAsync } from "../../redux/actions/product";
 
 const ShopAllProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { products, loading } = useSelector((state: LWPState) => state.product);
-  const { shop } = useSelector((state: LWPState) => state.shop);
+  const { products, loading } = useSelector((state: YKState) => state.product);
+  const { shop } = useSelector((state: YKState) => state.shop);
 
   const columns: GridColDef[] = [
     {

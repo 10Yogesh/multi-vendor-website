@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import lwpStyles from "../../../styles";
+import ykStyles from "../../../styles";
 import { AppDispatch } from "../../../redux/store";
 import { createShopAsync } from "../../../redux/actions/shop";
 import { AxiosError } from "axios";
@@ -187,7 +187,7 @@ const ShopRegister = () => {
                 Submit
               </button>
             </div>
-            <div className={`${lwpStyles.noramlFlex} w-full`}>
+            <div className={`${ykStyles.noramlFlex} w-full`}>
               <h4>Already have an account?</h4>
               <Link to="/shop-login" className="text-blue-600 pl-2">
                 Sign in
